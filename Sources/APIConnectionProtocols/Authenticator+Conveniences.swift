@@ -4,7 +4,7 @@ import TaskQueue
 
 
 
-extension Authenticator where Self : HasTaskQueue {
+public extension Authenticator where Self : HasTaskQueue {
 	
 	func authenticate(request: Request) async throws -> Request {
 		return try await executeOnTaskQueue{ () -> Request in
