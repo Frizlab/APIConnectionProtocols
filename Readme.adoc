@@ -1,0 +1,4 @@
+= API Connection Protocols
+François Lamboley <francois.lamboley@purewayz.com>
+
+A collection of protocols to facilitate and formalize connection to an API.
