@@ -45,3 +45,30 @@ public extension Connector where Self : HasTaskQueue {
 	}
 	
 }
+
+
+public extension Connector where Self : HasTaskQueue, Authentication == Void {
+	
+	func connect(scope: Scope) async throws -> Scope {
+		try await connect(scope: scope, auth: ())
+	}
+	
+}
+
+
+public extension Connector where Self : HasTaskQueue, Scope == Void {
+	
+	func connect(auth: Authentication) async throws -> Scope {
+		try await connect(scope: (), auth: auth)
+	}
+	
+}
+
+
+public extension Connector where Self : HasTaskQueue, Authentication == Void, Scope == Void {
+	
+	func connect() async throws -> Scope {
+		try await connect(scope: (), auth: ())
+	}
+	
+}
