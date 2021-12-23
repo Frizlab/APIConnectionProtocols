@@ -49,6 +49,7 @@ public extension Connector where Self : HasTaskQueue {
 
 public extension Connector where Self : HasTaskQueue, Authentication == Void {
 	
+	@discardableResult
 	func connect(scope: Scope) async throws -> Scope {
 		try await connect(scope: scope, auth: ())
 	}
@@ -58,6 +59,7 @@ public extension Connector where Self : HasTaskQueue, Authentication == Void {
 
 public extension Connector where Self : HasTaskQueue, Scope == Void {
 	
+	@discardableResult
 	func connect(auth: Authentication) async throws -> Scope {
 		try await connect(scope: (), auth: auth)
 	}
@@ -67,6 +69,7 @@ public extension Connector where Self : HasTaskQueue, Scope == Void {
 
 public extension Connector where Self : HasTaskQueue, Authentication == Void, Scope == Void {
 	
+	@discardableResult
 	func connect() async throws -> Scope {
 		try await connect(scope: (), auth: ())
 	}
