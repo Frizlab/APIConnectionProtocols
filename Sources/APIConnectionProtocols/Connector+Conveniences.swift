@@ -25,10 +25,8 @@ public extension Connector where Self : HasTaskQueue {
 	 - Returns: The new scopes after the connection. */
 	@discardableResult
 	func connect(scope: Scope, auth: Authentication) async throws -> Scope {
-		return try await executeOnTaskQueue{ () -> Scope in
-			return try await self.unqueuedConnect(scope: scope, auth: auth)
-			/* This must be true, but cannot be verified because Scope is not Equatable. */
-//			assert(ret == self.currentScope)
+		try await executeOnTaskQueue{ () -> Scope in
+			try await self.unqueuedConnect(scope: scope, auth: auth)
 		}
 	}
 	
