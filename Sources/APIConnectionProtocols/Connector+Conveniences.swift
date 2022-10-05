@@ -14,7 +14,7 @@ public extension Connector {
 }
 
 
-public extension Connector where Self : HasTaskQueue {
+public extension Connector where Self : HasTaskQueue, Scope : Sendable, Authentication : Sendable {
 	
 	/**
 	 Connects the given scope in an ``HasTaskQueue.executeOnTaskQueue(_:)`` block.
@@ -38,14 +38,13 @@ public extension Connector where Self : HasTaskQueue {
 	func disconnect() async throws {
 		try await executeOnTaskQueue{
 			try await self.unqueuedDisconnect()
-			assert(self.currentScope == nil)
 		}
 	}
 	
 }
 
 
-public extension Connector where Self : HasTaskQueue, Authentication == Void {
+public extension Connector where Self : HasTaskQueue, Scope : Sendable, Authentication == Void {
 	
 	@discardableResult
 	func connect(scope: Scope) async throws -> Scope {
@@ -55,7 +54,7 @@ public extension Connector where Self : HasTaskQueue, Authentication == Void {
 }
 
 
-public extension Connector where Self : HasTaskQueue, Scope == Void {
+public extension Connector where Self : HasTaskQueue, Scope == Void, Authentication : Sendable {
 	
 	@discardableResult
 	func connect(auth: Authentication) async throws -> Scope {
