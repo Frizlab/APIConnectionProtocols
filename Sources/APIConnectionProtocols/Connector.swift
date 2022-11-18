@@ -4,15 +4,10 @@ import Foundation
 
 public protocol Connector : Actor {
 	
-	/** `Void` can be used if the connector does not have a specific scope type and is just connected or not. */
-	associatedtype Scope
-	
 	/** The authentication required to connect. E.g. username/password, a token from another connector, etc. */
 	associatedtype Authentication
 	
-	/**
-	 `nil` if not connected, otherwise, any non-nil value. */
-	var currentScope: Scope? {get}
+	var isConnected: Bool {get}
 	
 	/**
 	 The connection method.
@@ -32,7 +27,7 @@ public protocol Connector : Actor {
 	 - Important:
 	 This method does not care if there is already a connection in progress (hence the unqueued part of the name).
 	 If the connector also conforms to ``HasTaskQueue``, you can use ``executeOnTaskQueue`` to avoid concurrent connections. */
-	func unqueuedConnect(scope: Scope, auth: Authentication) async throws -> Scope
+	func unqueuedConnect(_ auth: Authentication) async throws
 	/**
 	 The disconnection method.
 	 Try and revoke the current scope, then sets ``currentScope`` to `nil` (on success).
