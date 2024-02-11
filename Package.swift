@@ -12,6 +12,6 @@ let package = Package(
 	targets: [
 		.target(name: "APIConnectionProtocols", dependencies: [
 			.product(name: "TaskQueue", package: "swift-task-queue")
-		])
+		], path: "Sources")
 	]
 )
