@@ -25,9 +25,9 @@ public protocol Connector : Actor {
 	 In general calling the connect method on a connected connector should be avoided.
 	 
 	 - Important:
-	 This method does not care if there is already a connection in progress (hence the unqueued part of the name).
+	 This method does not care if there is already a connection in progress.
 	 If the connector also conforms to ``HasTaskQueue``, you can use ``executeOnTaskQueue`` to avoid concurrent connections. */
-	func unqueuedConnect(_ auth: Authentication) async throws
+	func onQueue_connect(_ auth: Authentication) async throws
 	/**
 	 The disconnection method.
 	 Try and revoke the current scope, then sets ``currentScope`` to `nil` (on success).
@@ -36,8 +36,8 @@ public protocol Connector : Actor {
 	 In general calling the disconnect method on a disconnected connector should be avoided.
 	 
 	 - Important:
-	 This method does not care if there is already a connection in progress (hence the unqueued part of the name).
+	 This method does not care if there is already a connection in progress.
 	 If the connector also conforms to ``HasTaskQueue``, you can use ``executeOnTaskQueue`` to avoid concurrent connections. */
-	func unqueuedDisconnect() async throws
+	func onQueue_disconnect() async throws
 	
 }

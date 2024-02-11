@@ -6,6 +6,6 @@ public protocol Authenticator : Actor {
 	
 	associatedtype Request
 	
-	func unqueuedAuthenticate(request: Request) async throws -> Request
+	func onQueue_authenticate(request: Request) async throws -> Request
 	
 }

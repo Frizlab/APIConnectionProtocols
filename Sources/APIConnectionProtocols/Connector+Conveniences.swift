@@ -14,7 +14,7 @@ public extension Connector where Self : HasTaskQueue, Authentication : Sendable 
 	 
 	 - Returns: The new scopes after the connection. */
 	func connect(_ auth: Authentication) async throws {
-		try await executeOnTaskQueue{ try await self.unqueuedConnect(auth) }
+		try await executeOnTaskQueue{ try await self.onQueue_connect(auth) }
 	}
 	
 	/**
@@ -23,7 +23,7 @@ public extension Connector where Self : HasTaskQueue, Authentication : Sendable 
 	 `executeOnTaskQueue` will add the given block to a queue and execute all blocks in sequence,
 	 which prevents concurrent connection operations. */
 	func disconnect() async throws {
-		try await executeOnTaskQueue{ try await self.unqueuedDisconnect() }
+		try await executeOnTaskQueue{ try await self.onQueue_disconnect() }
 	}
 	
 }
